@@ -10,6 +10,7 @@ import org.ace.stock.utils.HttpUtil;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -134,7 +135,7 @@ public class QueryService {
 	
 	public List<StockValue> readCache(){
 		List<String> stockcodes = new ArrayList<String>();
-		FileUtil.readFile(Constant.CACHE_FILE, stockcodes);
+		FileUtil.readFile(getDataFile(), stockcodes);
 		List<StockValue> result = new ArrayList<StockValue>(stockcodes.size());
 		for(String line : stockcodes) {
 			String[] arr = line.split(",");
@@ -147,6 +148,15 @@ public class QueryService {
 		System.out.println("缓存的股票信息size:" + result.size());
 		return result;
 	}
+
+	private String getDataFile(){
+		String path = System.getProperty("user.home") + "/" + "miniStock";
+		File dir = new File(path);
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		return path + "/stock.data";
+	}
 	
 	public boolean saveCache(List<StockValue> stockValues){
 		List<String> valueList  = new ArrayList<String>(stockValues.size());
@@ -158,13 +168,12 @@ public class QueryService {
 			}
 			valueList.add(sb.toString());
 		}
-		FileUtil.writeFile(Constant.CACHE_FILE, valueList, false);
+		FileUtil.writeFile(getDataFile(), valueList, false);
 		return true;
 	}
 
 	/**
 	 * 总盈利
-	 * @param StockValues
 	 * @return
 	 */
 	public float getTotalGain() {

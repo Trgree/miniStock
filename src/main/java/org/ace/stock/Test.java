@@ -10,12 +10,16 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.ace.stock.pojo.Stock;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Test {
 
 	public static void main(String[] args) {
-		get();
+	//	get();
+		File file = new File("~/");
+        System.out.println(file.getAbsoluteFile());
+        System.out.println(System.getProperty("user.home"));
 	}
 	
 	public static void get() {  

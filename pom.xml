@@ -58,7 +58,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.ace.org.ace.stock.Start</mainClass>
+                            <mainClass>org.ace.stock.Start</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
